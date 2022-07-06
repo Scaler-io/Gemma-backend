@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32414.318
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{C246FD57-8BFD-47DD-B68D-7C9C98C685D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{1B5F00B6-FFDF-45A9-8BE8-FFD481CF9540}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gemma.Catalog.API", "Services\Catalog\Gemma.Catalog.API\Gemma.Catalog.API.csproj", "{A5A09793-F863-4E69-920A-9A7B001D010A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{B537732A-D8F7-4CE1-A434-F21E9B5244C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gemma.Shared", "Services\Shared\Gemma.Shared\Gemma.Shared.csproj", "{CC5DC3D0-3E73-4FF6-B872-D1B8C83C0E6B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5A09793-F863-4E69-920A-9A7B001D010A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5A09793-F863-4E69-920A-9A7B001D010A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5A09793-F863-4E69-920A-9A7B001D010A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5A09793-F863-4E69-920A-9A7B001D010A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC5DC3D0-3E73-4FF6-B872-D1B8C83C0E6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC5DC3D0-3E73-4FF6-B872-D1B8C83C0E6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC5DC3D0-3E73-4FF6-B872-D1B8C83C0E6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC5DC3D0-3E73-4FF6-B872-D1B8C83C0E6B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1B5F00B6-FFDF-45A9-8BE8-FFD481CF9540} = {C246FD57-8BFD-47DD-B68D-7C9C98C685D7}
+		{A5A09793-F863-4E69-920A-9A7B001D010A} = {1B5F00B6-FFDF-45A9-8BE8-FFD481CF9540}
+		{B537732A-D8F7-4CE1-A434-F21E9B5244C2} = {C246FD57-8BFD-47DD-B68D-7C9C98C685D7}
+		{CC5DC3D0-3E73-4FF6-B872-D1B8C83C0E6B} = {B537732A-D8F7-4CE1-A434-F21E9B5244C2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB9A4480-9D13-40AB-8765-E7E133D656CC}
+	EndGlobalSection
+EndGlobal
