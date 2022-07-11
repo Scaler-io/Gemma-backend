@@ -8,8 +8,9 @@ var config = builder.Configuration;
 
 // Add services to the container.
 
-builder.Services.AddApplicationServices(config);
-
+builder.Services.AddApplicationServices(config)
+                .AddDataServices()
+                .AddBusinessLayerServices();
 
 var app = builder.Build();
 

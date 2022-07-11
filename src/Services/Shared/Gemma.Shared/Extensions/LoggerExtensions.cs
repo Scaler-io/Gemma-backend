@@ -17,7 +17,7 @@ namespace Gemma.Shared.Extensions
                          .ForContext(LoggerConstants.CallerType, callerType);
         }
 
-        public static void MethoEnterd(this ILogger logger)
+        public static void MethodEnterd(this ILogger logger)
         {
             logger.Debug(LoggerConstants.MethodEntered);
         }
