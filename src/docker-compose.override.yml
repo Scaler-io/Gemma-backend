@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  catalogdb:
+    container_name: catalog_db
+    restart: always
+    ports: 
+        - "27017:27017"
+    volumes:
+        - mongo_data:/data/db 
+
+  gemma.catalog.api:
+    container_name: catalog.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "LoggerConfigOption:OverrideSource=Microsoft"
+      - "LoggerConfigOption:OutputTemplate=[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] {NewLine} {Properties} {NewLine} {NewLine} {Message} {Exception}"
+      - "DatabaseSettings:ConnectionString=mongodb://catalogdb:27017"
+      - "DatabaseSettings:Database=ProductDb"
+      - "DatabaseSettings:Collection=Products"
+    depends_on:
+      - catalogdb
+    ports:
+      - "8000:80"  
+  
+  mongo_express:
+    container_name: catalougedb_mongoexpress
+    environment:
+       - ME_CONFIG_OPTIONS_EDITORTHEME=ambiance
+       - ME_CONFIG_MONGODB_SERVER=catalogdb
+    depends_on:
+       - catalogdb
+    ports:
+       - "8081:8081" 

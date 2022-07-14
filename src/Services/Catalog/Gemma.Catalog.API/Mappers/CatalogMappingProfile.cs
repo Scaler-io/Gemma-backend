@@ -8,9 +8,7 @@ namespace Gemma.Catalog.API.Mappers
     {
         public CatalogMappingProfile()
         {
-            CreateMap<Product, ProductRequest>()
-                .ForMember(p => p.Id, d => d.MapFrom(s => s.Id))
-                .ReverseMap();
+            CreateMap<ProductRequest, Product>();     
         }
     }
 }
