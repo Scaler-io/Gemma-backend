@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.16.1" />
@@ -15,10 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Gemma.Shared\Gemma.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\v1\" />
   </ItemGroup>
 
 </Project>

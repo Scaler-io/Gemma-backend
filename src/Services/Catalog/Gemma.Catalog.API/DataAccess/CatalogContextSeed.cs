@@ -1,16 +1,27 @@
 ﻿using Gemma.Catalog.API.Entities;
+using Gemma.Shared.Extensions;
 using MongoDB.Driver;
+using ILogger = Serilog.ILogger;
 
 namespace Gemma.Catalog.API.DataAccess
 {
     public class CatalogContextSeed
     {
-        public static async Task SeedDate(IMongoCollection<Product> productCollection, ILogger logger)
+        public static async Task SeedData(IMongoCollection<Product> productCollection, ILogger logger)
         {
             var existsProduct = productCollection.Find(p => true).Any();
             if (!existsProduct)
             {
-                await productCollection.InsertManyAsync(GetPreconfiguredData());
+                logger.Here().Debug("Seeding product data");
+                try
+                {
+                    await productCollection.InsertManyAsync(GetPreconfiguredData());
+                }
+                finally
+                {
+                    logger.Here().Debug("Seeded product data");
+                }
+                
             } 
         }
 
@@ -53,7 +64,7 @@ namespace Gemma.Catalog.API.DataAccess
                     Id = "602d2149e773f2a3990b47f8",
                     Name = "Xiaomi Mi 9",
                     Summary = "This phone is the company's biggest change to its flagship smartphone in years. It includes a borderless.",
-                    DesImageLinkcription = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.",
                     ImageLink = "product-4.png",
                     Price = 470.00M,
                     Category = "White Appliances"

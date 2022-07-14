@@ -1,4 +1,6 @@
-﻿using Gemma.Catalog.API.DataAccess.Interfaces;
+﻿using AutoMapper;
+using Gemma.Catalog.API.DataAccess.Interfaces;
+using Gemma.Catalog.API.Models;
 using Gemma.Shared.Common;
 using Gemma.Shared.Constants;
 using Gemma.Shared.Extensions;
@@ -10,11 +12,13 @@ namespace Gemma.Catalog.API.Services.Product
     {
         private readonly IProductRepository _productRepository;
         private readonly ILogger _logger;
+        private readonly IMapper _mapper;
 
-        public ProductService(IProductRepository productRepository, ILogger logger)
+        public ProductService(IProductRepository productRepository, ILogger logger, IMapper mapper)
         {
             _productRepository = productRepository;
             _logger = logger;
+            _mapper = mapper;
         }
 
         public async Task<Result<IEnumerable<Entities.Product>>> GetProducts()
@@ -77,11 +81,12 @@ namespace Gemma.Catalog.API.Services.Product
             return Result<IEnumerable<Entities.Product>>.Success(result);
         }
 
-        public async Task CreateProduct(Entities.Product product)
+        public async Task CreateProduct(ProductRequest request)
         {
             _logger.Here().MethodEnterd();
             try
             {
+                var product = _mapper.Map<Entities.Product>(request);   
                 await _productRepository.CreateProduct(product);
                 _logger.Here().Information("Product created. {@product}", product);
             }
@@ -93,9 +98,11 @@ namespace Gemma.Catalog.API.Services.Product
             _logger.Here().MethodExited();
         }
         
-        public async Task<Result<bool>> UpdateProduct(Entities.Product product)
+        public async Task<Result<bool>> UpdateProduct(ProductRequest request)
         {
             _logger.Here().MethodEnterd();
+
+            var product = _mapper.Map<Entities.Product>(request);
             var result = await _productRepository.UpdateProduct(product);
 
             if (!result)
@@ -103,6 +110,8 @@ namespace Gemma.Catalog.API.Services.Product
                 _logger.Here().Error("Failed to update product with id {@productId}", product.Id);
                 return Result<bool>.Fail("Failed to update product. {@errorMessage}", ErrorMessages.Operationfailed);
             }
+
+            _logger.Here().Information("Product updated. {@product}", product);
             _logger.Here().MethodExited();
             return Result<bool>.Success(true);
         }
@@ -116,6 +125,8 @@ namespace Gemma.Catalog.API.Services.Product
                 _logger.Here().Error("Failed to delete product with id {@productId}", id);
                 return Result<bool>.Fail("Failed to delete product. {@errorMessage}", ErrorMessages.Operationfailed);
             }
+
+            _logger.Here().Information("Product deleted. {@productId}", id);
             _logger.Here().MethodExited();
             return Result<bool>.Success(true);
         }

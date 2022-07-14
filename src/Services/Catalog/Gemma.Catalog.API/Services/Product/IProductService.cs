@@ -1,4 +1,5 @@
-﻿using Gemma.Shared.Common;
+﻿using Gemma.Catalog.API.Models;
+using Gemma.Shared.Common;
 
 namespace Gemma.Catalog.API.Services.Product
 {
@@ -9,8 +10,8 @@ namespace Gemma.Catalog.API.Services.Product
         Task<Result<IEnumerable<Entities.Product>>> GetProductsByName(string name);
         Task<Result<IEnumerable<Entities.Product>>> GetProductsByCategory(string category);
 
-        Task CreateProduct(Entities.Product product);
-        Task<Result<bool>> UpdateProduct(Entities.Product product);
+        Task CreateProduct(ProductRequest request);
+        Task<Result<bool>> UpdateProduct(ProductRequest request);
         Task<Result<bool>> DeleteProduct(string id);
     }
 }

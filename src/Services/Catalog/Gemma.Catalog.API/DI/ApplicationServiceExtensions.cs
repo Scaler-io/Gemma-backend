@@ -3,6 +3,7 @@ using Gemma.Catalog.API.MiddleWares;
 using Gemma.Shared.Common;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using System.Reflection;
 
 namespace Gemma.Catalog.API.DI
 {
@@ -13,6 +14,8 @@ namespace Gemma.Catalog.API.DI
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             var logger = LoggerConfig.Configure(config);
 
