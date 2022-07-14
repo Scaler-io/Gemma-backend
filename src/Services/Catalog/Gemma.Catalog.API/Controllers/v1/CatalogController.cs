@@ -10,7 +10,7 @@ using ILogger = Serilog.ILogger;
 namespace Gemma.Catalog.API.Controllers.v1
 {
     [ApiVersion("1")]
-    public class CatalogController: BaseApiController
+    public class CatalogController : BaseApiController
     {
         private readonly IProductService _productService;
         public CatalogController(ILogger logger, IProductService productService)
@@ -89,7 +89,7 @@ namespace Gemma.Catalog.API.Controllers.v1
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ApiValidationResponse), (int)HttpStatusCode.UnprocessableEntity)]
         [ProducesResponseType(typeof(ApiExceptionResponse), (int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> UpdateProduct([FromBody] ProductRequest request)
@@ -102,8 +102,8 @@ namespace Gemma.Catalog.API.Controllers.v1
             return OkOrFail(result);
         }
 
-        [HttpDelete]
-        [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
+        [HttpDelete("{id:length(24)}")]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ApiValidationResponse), (int)HttpStatusCode.UnprocessableEntity)]
         [ProducesResponseType(typeof(ApiExceptionResponse), (int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> DeleteProduct([FromRoute] string id)
