@@ -48,12 +48,13 @@ services:
     ports:
     - "8082:8081"
 
-  #gemma.basket.api:
-  #  environment:
-  #    - ASPNETCORE_ENVIRONMENT=Development
-  #    - "LoggerConfigOption:OverrideSource=Microsoft"
-  #    - "LoggerConfigOption:OutputTemplate=[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] {NewLine} {Properties} {NewLine} {NewLine} {Message} {Exception}"
-  #  depends_on:
-  #    - basketdb
-  #  ports:
-  #    - "8001:80"
+  gemma.basket.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "LoggerConfigOption:OverrideSource=Microsoft"
+      - "LoggerConfigOption:OutputTemplate=[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] {NewLine} {Properties} {NewLine} {NewLine} {Message} {Exception}"
+      - "CacheSettings:ConnectionString=basketdb:6379"
+    depends_on:
+      - basketdb
+    ports:
+      - "8001:80"

@@ -17,11 +17,11 @@ services:
   redis-commander:
     image: rediscommander/redis-commander:latest
 
-  #gemma.basket.api:
-  #  image: ${DOCKER_REGISTRY-}gemmabasketapi
-  #  build:
-  #    context: .
-  #    dockerfile: Gemma.Basket.API/Dockerfile
+  gemma.basket.api:
+    image: ${DOCKER_REGISTRY-}gemmabasketapi
+    build:
+      context: .
+      dockerfile: Gemma.Basket.API/Dockerfile
 
 volumes:
   mongo_data: 
