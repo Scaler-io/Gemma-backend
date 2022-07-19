@@ -37,6 +37,11 @@ namespace Gemma.Basket.API.DI
                 options.InvalidModelStateResponseFactory = HandleFrameorkValidationFailure();
             });
 
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = config.GetSection("CacheSettings").GetValue<string>("ConnectionString");
+            });
+
             services.AddSingleton(x => logger);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
