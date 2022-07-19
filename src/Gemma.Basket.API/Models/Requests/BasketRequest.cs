@@ -4,7 +4,6 @@ namespace Gemma.Basket.API.Models.Requests
 {
     public class BasketRequest
     {
-        public string Id { get; set; } = Guid.NewGuid().ToString();
         [Required]
         public string UserName { get; set; }
         [Required]

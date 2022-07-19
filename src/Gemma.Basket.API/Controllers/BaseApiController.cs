@@ -3,7 +3,7 @@ using Gemma.Shared.Constants;
 using Microsoft.AspNetCore.Mvc;
 using ILogger = Serilog.ILogger;
 
-namespace Gemma.Catalog.API.Controllers
+namespace Gemma.Basket.API.Controllers
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]

@@ -1,6 +1,6 @@
 ﻿namespace Gemma.Basket.API.Entities
 {
-    public class ShoppingCart
+    public class ShoppingCart: BaseEntity
     {
         public string UserName { get; set; }
         public IEnumerable<ShoppingCartItem> Items { get; set; } = new List<ShoppingCartItem>();

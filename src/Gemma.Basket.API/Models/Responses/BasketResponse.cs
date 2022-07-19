@@ -2,9 +2,10 @@
 {
     public class BasketResponse
     {
-        public string Id { get; set; }
         public string UserName { get; set; }
         public int BasketTotal { get; set; }
-        public IEnumerable<ShoppingCartItemResponse> Items { get; set; } = new List<ShoppingCartItemResponse>();    
+        public IEnumerable<ShoppingCartItemResponse> Items { get; set; } = new List<ShoppingCartItemResponse>();
+        public string CreatedOn { get; set; }
+        public string UpdatedOn { get; set; }
     }
 }
