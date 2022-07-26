@@ -20,4 +20,4 @@ RUN dotnet publish "Gemma.Basket.API.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Gemma.Basket.API.dll"] 
+ENTRYPOINT ["dotnet", "Gemma.Basket.API.dll"]
