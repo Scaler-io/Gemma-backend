@@ -3,14 +3,27 @@ version: '3.4'
 services:
   catalogdb:
     image: mongo
+  basketdb:
+    image: redis:alpine
 
   gemma.catalog.api:
     image: ${DOCKER_REGISTRY-}gemmacatalogapi
     build:
       context: .
       dockerfile: Services/Catalog/Gemma.Catalog.API/Dockerfile
-
+  
+  gemma.basket.api:
+    image: ${DOCKER_REGISTRY-}gemmabasketapi
+    build:
+      context: .
+      dockerfile: Services/Basket/Gemma.Basket.API/Dockerfile
+  
   mongo_express:
     image: mongo-express
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+ 
+
 volumes:
   mongo_data: 
+
