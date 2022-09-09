@@ -1,5 +1,5 @@
-﻿using Gemma.Basket.API.Infrastructures;
-using Gemma.Basket.API.MiddleWares;
+﻿using Gemma.Basket.API.MiddleWares;
+using Gemma.Infrastructure;
 using Gemma.Shared.Common;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;

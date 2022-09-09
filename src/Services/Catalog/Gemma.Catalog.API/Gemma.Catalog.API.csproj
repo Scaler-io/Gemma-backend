@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Gemma.Infrastructure\Gemma.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Shared\Gemma.Shared\Gemma.Shared.csproj" />
   </ItemGroup>
 

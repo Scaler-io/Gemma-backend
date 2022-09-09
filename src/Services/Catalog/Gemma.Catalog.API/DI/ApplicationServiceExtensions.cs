@@ -1,5 +1,5 @@
-﻿using Gemma.Catalog.API.Infrastructures;
-using Gemma.Catalog.API.MiddleWares;
+﻿using Gemma.Catalog.API.MiddleWares;
+using Gemma.Infrastructure;
 using Gemma.Shared.Common;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
