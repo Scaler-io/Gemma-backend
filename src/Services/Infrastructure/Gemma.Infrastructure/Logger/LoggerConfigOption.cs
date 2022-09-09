@@ -1,4 +1,4 @@
-﻿namespace Gemma.Basket.API.Infrastructures
+﻿namespace Gemma.Infrastructure
 {
     public class LoggerConfigOption
     {

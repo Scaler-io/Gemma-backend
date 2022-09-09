@@ -1,5 +1,5 @@
 ﻿using Gemma.Catalog.API.Entities;
-using Gemma.Catalog.API.Models;
+using Gemma.Catalog.API.Models.Requests;
 using Gemma.Catalog.API.Services.Product;
 using Gemma.Shared.Common;
 using Gemma.Shared.Extensions;

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Gemma.Catalog.API.DataAccess.Interfaces;
-using Gemma.Catalog.API.Models;
+using Gemma.Catalog.API.Models.Requests;
+using Gemma.Catalog.API.Models.Responses;
 using Gemma.Shared.Common;
 using Gemma.Shared.Constants;
 using Gemma.Shared.Extensions;
@@ -21,7 +22,7 @@ namespace Gemma.Catalog.API.Services.Product
             _mapper = mapper;
         }
 
-        public async Task<Result<IEnumerable<Entities.Product>>> GetProducts()
+        public async Task<Result<IEnumerable<ProductResponse>>> GetProducts()
         {
             _logger.Here().MethodEnterd();
             var result = await _productRepository.GetProducts();
@@ -29,13 +30,14 @@ namespace Gemma.Catalog.API.Services.Product
             if(result == null)
             {
                 _logger.Here().Information($"No products found. {ErrorMessages.NotFound}");
-                return Result<IEnumerable<Entities.Product>>.Fail(ErrorCodes.NotFound, "No product found");
+                return Result<IEnumerable<ProductResponse>>.Fail(ErrorCodes.NotFound, "No product found");
             }
 
+            var response = _mapper.Map<IEnumerable<ProductResponse>>(result);
             _logger.Here().MethodExited();
-            return Result<IEnumerable<Entities.Product>>.Success(result);
+            return Result<IEnumerable<ProductResponse>>.Success(response);
         }
-        public async Task<Result<Entities.Product>> GetProduct(string id)
+        public async Task<Result<ProductResponse>> GetProduct(string id)
         {
             _logger.Here().MethodEnterd();
             var result = await _productRepository.GetProduct(id);
@@ -43,15 +45,16 @@ namespace Gemma.Catalog.API.Services.Product
             if (result == null)
             {
                 _logger.Here().Information($"No products found with {id}. {ErrorMessages.NotFound}");
-                return Result<Entities.Product>.Fail(ErrorCodes.NotFound, "No product found");
+                return Result<ProductResponse>.Fail(ErrorCodes.NotFound, "No product found");
             }
 
+            var response = _mapper.Map<ProductResponse>(result);
             _logger.Here().ForContext("productId", id).Information($"Product found with id {id}");
             _logger.Here().MethodExited();
-            return Result<Entities.Product>.Success(result);
+            return Result<ProductResponse>.Success(response);
         }
 
-        public async Task<Result<IEnumerable<Entities.Product>>> GetProductsByName(string name)
+        public async Task<Result<IEnumerable<ProductResponse>>> GetProductsByName(string name)
         {
             _logger.Here().MethodEnterd();
             var result = await _productRepository.GetProductsByName(name);
@@ -59,14 +62,15 @@ namespace Gemma.Catalog.API.Services.Product
             if (result == null)
             {
                 _logger.Here().Information($"No products found with name {name}. {ErrorMessages.NotFound}");
-                return Result<IEnumerable<Entities.Product>>.Fail(ErrorCodes.NotFound, "No product found");
+                return Result<IEnumerable<ProductResponse>>.Fail(ErrorCodes.NotFound, "No product found");
             }
 
+            var response = _mapper.Map<IEnumerable<ProductResponse>>(result);
             _logger.Here().MethodExited();
-            return Result<IEnumerable<Entities.Product>>.Success(result);
+            return Result<IEnumerable<ProductResponse>>.Success(response);
         }
 
-        public async Task<Result<IEnumerable<Entities.Product>>> GetProductsByCategory(string category)
+        public async Task<Result<IEnumerable<ProductResponse>>> GetProductsByCategory(string category)
         {
             _logger.Here().MethodEnterd();
             var result = await _productRepository.GetProductBycategory(category);
@@ -74,11 +78,12 @@ namespace Gemma.Catalog.API.Services.Product
             if (result == null)
             {
                 _logger.Here().Information($"No products found with category {category}. {ErrorMessages.NotFound}");
-                return Result<IEnumerable<Entities.Product>>.Fail(ErrorCodes.NotFound, "No product found");
+                return Result<IEnumerable<ProductResponse>>.Fail(ErrorCodes.NotFound, "No product found");
             }
 
+            var response = _mapper.Map<IEnumerable<ProductResponse>>(result);
             _logger.Here().MethodExited();
-            return Result<IEnumerable<Entities.Product>>.Success(result);
+            return Result<IEnumerable<ProductResponse>>.Success(response);
         }
 
         public async Task CreateProduct(ProductRequest request)

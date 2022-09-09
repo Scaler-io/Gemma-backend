@@ -1,8 +1,9 @@
-﻿using Serilog;
+﻿using Microsoft.Extensions.Configuration;
+using Serilog;
 using Serilog.Core;
 using ILogger = Serilog.ILogger;
 
-namespace Gemma.Catalog.API.Infrastructures
+namespace Gemma.Infrastructure
 {
     public class LoggerConfig
     {
