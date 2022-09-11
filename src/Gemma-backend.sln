@@ -23,6 +23,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discount", "Discount", "{24
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gemma.Discount.GRPC", "Services\Discount\Gemma.Discount.GRPC\Gemma.Discount.GRPC.csproj", "{79EC82F1-98A4-4F1E-9F22-A77B06B37C23}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{165D89CF-8E61-47E7-82DB-B402774C71A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gemma.Infrastructure", "Services\Infrastructure\Gemma.Infrastructure\Gemma.Infrastructure.csproj", "{E018888E-C2F4-4272-9961-F865F77494E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,10 @@ Global
 		{79EC82F1-98A4-4F1E-9F22-A77B06B37C23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79EC82F1-98A4-4F1E-9F22-A77B06B37C23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79EC82F1-98A4-4F1E-9F22-A77B06B37C23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E018888E-C2F4-4272-9961-F865F77494E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E018888E-C2F4-4272-9961-F865F77494E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E018888E-C2F4-4272-9961-F865F77494E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E018888E-C2F4-4272-9961-F865F77494E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +70,8 @@ Global
 		{C65738A6-967A-4B62-93F0-C9B0B8F31D74} = {494FC1B8-6390-4F86-AFD9-A253EF02461A}
 		{24EDE716-0E4F-4223-BD99-7E3DF89478F6} = {C246FD57-8BFD-47DD-B68D-7C9C98C685D7}
 		{79EC82F1-98A4-4F1E-9F22-A77B06B37C23} = {24EDE716-0E4F-4223-BD99-7E3DF89478F6}
+		{165D89CF-8E61-47E7-82DB-B402774C71A3} = {C246FD57-8BFD-47DD-B68D-7C9C98C685D7}
+		{E018888E-C2F4-4272-9961-F865F77494E6} = {165D89CF-8E61-47E7-82DB-B402774C71A3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EB9A4480-9D13-40AB-8765-E7E133D656CC}
