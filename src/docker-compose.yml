@@ -5,6 +5,8 @@ services:
     image: mongo
   basketdb:
     image: redis:alpine
+  discountdb:
+    image: postgres 
 
   gemma.catalog.api:
     image: ${DOCKER_REGISTRY-}gemmacatalogapi
@@ -22,8 +24,11 @@ services:
     image: mongo-express
   redis-commander:
     image: rediscommander/redis-commander:latest
- 
+  pgadmin:
+    image: dpage/pgadmin4  
 
 volumes:
   mongo_data: 
+  postgres_data:
+  pgadmin_data:
 

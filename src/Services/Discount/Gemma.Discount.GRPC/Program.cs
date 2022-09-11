@@ -1,5 +1,5 @@
 using Gemma.Discount.GRPC.DI;
-using Gemma.Discount.GRPC.Services;
+using Gemma.Discount.GRPC.Extensions;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +15,7 @@ app.AddApplicationMiddlewares();
 
 try
 {
+    app.MigrateDatabase();
     await app.RunAsync();
 }
 finally

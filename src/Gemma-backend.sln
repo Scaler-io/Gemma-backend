@@ -21,11 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gemma.Basket.API", "Service
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discount", "Discount", "{24EDE716-0E4F-4223-BD99-7E3DF89478F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gemma.Discount.GRPC", "Services\Discount\Gemma.Discount.GRPC\Gemma.Discount.GRPC.csproj", "{79EC82F1-98A4-4F1E-9F22-A77B06B37C23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gemma.Discount.GRPC", "Services\Discount\Gemma.Discount.GRPC\Gemma.Discount.GRPC.csproj", "{79EC82F1-98A4-4F1E-9F22-A77B06B37C23}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{165D89CF-8E61-47E7-82DB-B402774C71A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gemma.Infrastructure", "Services\Infrastructure\Gemma.Infrastructure\Gemma.Infrastructure.csproj", "{E018888E-C2F4-4272-9961-F865F77494E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gemma.Infrastructure", "Services\Infrastructure\Gemma.Infrastructure\Gemma.Infrastructure.csproj", "{E018888E-C2F4-4272-9961-F865F77494E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
