@@ -27,9 +27,9 @@ namespace Gemma.Discount.GRPC.Repositories
             return coupons;
         }
 
-        public async Task<Coupon> GetCoupon(int id)
+        public async Task<Coupon> GetCoupon(string id)
         {
-            var command = new CommandDefinition(DiscountDbCommands.SelectById, new { Id = id });
+            var command = new CommandDefinition(DiscountDbCommands.SelectByProductId, new { ProductId = id });
             var coupon = await _connection.QueryFirstOrDefaultAsync<Coupon>(command);
             _logger.Here().MethodExited();
             return coupon;

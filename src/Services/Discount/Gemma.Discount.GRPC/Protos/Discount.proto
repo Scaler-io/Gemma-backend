@@ -16,9 +16,10 @@ message GetAllCouponRequest {}
 
 message CouponModel {
 	int32 id = 1;
-	string productName = 2;
-	string description = 3;
-	int32 amount = 4;
+	string productId = 2;
+	string productName = 3;
+	string description = 4;
+	int32 amount = 5;
 }
 
 message Coupons {
@@ -26,7 +27,7 @@ message Coupons {
 }
 
 message GetDiscountByIdRequest {
-	int32 productId = 1;
+	string productId = 1;
 }
 
 message GetDiscountByProductNameRequest {

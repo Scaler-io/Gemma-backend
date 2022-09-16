@@ -48,10 +48,23 @@ services:
       - "LoggerConfigOption:OverrideSource=Microsoft"
       - "LoggerConfigOption:OutputTemplate=[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] {NewLine} {Properties} {NewLine} {NewLine} {Message} {Exception}"
       - "CacheSettings:ConnectionString=basketdb:6379"
+      - "GrpcClient:DiscountUrl=http://discount.grpc"
     depends_on:
       - basketdb
     ports:
       - "8001:80"
+
+  gemma.discount.grpc:
+    container_name: discount.grpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "LoggerConfigOption:OverrideSource=Microsoft"
+      - "LoggerConfigOption:OutputTemplate=[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] {NewLine} {Properties} {NewLine} {NewLine} {Message} {Exception}"
+      - "DiscountDb:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=admin1234;"
+    depends_on:
+      - discountdb
+    ports:
+      - "8002:80"
   
   mongo_express:
     container_name: catalougedb_mongoexpress
@@ -83,4 +96,3 @@ services:
       - "5050:80"
     volumes:
       - pgadmin_data:/root/.pgadmin
-  

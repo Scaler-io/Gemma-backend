@@ -1,4 +1,5 @@
 ﻿using Gemma.Basket.API.MiddleWares;
+using Gemma.Discount.GRPC.Protos;
 using Gemma.Infrastructure;
 using Gemma.Shared.Common;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,11 @@ namespace Gemma.Basket.API.DI
 
             services.AddSingleton(x => logger);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(o =>
+            {
+                o.Address = new Uri(config["GrpcClient:DiscountUrl"]);
+            });
 
             return services;
         }

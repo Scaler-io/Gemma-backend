@@ -1,4 +1,5 @@
-﻿using Gemma.Infrastructure;
+﻿using Gemma.Discount.GRPC.Services;
+using Gemma.Infrastructure;
 using Serilog;
 using System.Reflection;
 
@@ -25,6 +26,8 @@ namespace Gemma.Discount.GRPC.DI
             }
 
             app.UseRouting();
+
+            app.MapGrpcService<DiscountService>();
 
             app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 

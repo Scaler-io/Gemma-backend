@@ -1,6 +1,7 @@
 ﻿using Gemma.Basket.API.Entities;
 using Gemma.Basket.API.Models.Requests;
 using Gemma.Basket.API.Models.Responses;
+using Gemma.Basket.API.Services.GrpcServices;
 using Gemma.Basket.API.Services.Interfaces;
 using Gemma.Shared.Common;
 using Gemma.Shared.Extensions;
@@ -15,10 +16,12 @@ namespace Gemma.Basket.API.Controllers.v1
     public class BasketController : BaseApiController
     {
         private readonly IBasketService _basketService;
-        public BasketController(ILogger logger, IBasketService basketService)
+        private readonly DiscountGrpcService _discountGrpcService;
+        public BasketController(ILogger logger, IBasketService basketService, DiscountGrpcService discountGrpcService)
             : base(logger)
         {
             _basketService = basketService;
+            _discountGrpcService = discountGrpcService;
         }
 
         [HttpGet("{username}", Name = "GetBasket")]
@@ -40,6 +43,23 @@ namespace Gemma.Basket.API.Controllers.v1
         public async Task<IActionResult> UpdateBasket([FromBody] ShoppingCartRequest basketRequest)
         {
             Logger.Here().MethodEnterd();
+
+            foreach(var item in basketRequest.Items)
+            {
+                var coupon = await _discountGrpcService.GetDiscountCoupon(item.ProductId);
+                item.Price -= coupon.Amount;
+                if (coupon == null)
+                {
+                    Logger.Here().Error("No coupon for {@productId} - {@productName}", item.ProductId, item.ProductName);
+                }
+                else
+                {
+                    Logger.Here().Information("Coupon found {@couponId} for {@productId} - {@productName}", coupon.Id, item.ProductId, item.ProductName);
+                    item.Price -= coupon.Amount;
+                    Logger.Here().Information("Total ammount deducted {@amount}. Current price is {@currentPrice}", coupon.Amount, item.Price);
+                }
+            }
+
             var response = await _basketService.UpdateBasket(basketRequest);
             Logger.Here().MethodExited();
             return OkOrFail(response);

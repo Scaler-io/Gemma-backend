@@ -37,10 +37,10 @@ namespace Gemma.Discount.GRPC.Extensions
                     command.ExecuteNonQuery();
 
                     // insert data into coupon
-                    command.CommandText = $"INSERT INTO Coupon(ProductName, Description, Amount, CreatedAt, UpdatedAt) VALUES('IPhone X', 'IPhone Discount', 150, '{DateTime.Now}', '{DateTime.Now}');";
+                    command.CommandText = $"INSERT INTO Coupon(ProductId, ProductName, Description, Amount, CreatedAt, UpdatedAt) VALUES('602d2149e773f2a3990b47f5', 'IPhone X', 'IPhone Discount 1', 150, '{DateTime.Now}', '{DateTime.Now}');";
                     command.ExecuteNonQuery();
 
-                    command.CommandText = $"INSERT INTO Coupon(ProductName, Description, Amount, CreatedAt, UpdatedAt) VALUES('Samsung 10', 'Samsung Discount', 100, '{DateTime.Now}', '{DateTime.Now}');";
+                    command.CommandText = $"INSERT INTO Coupon(ProductId, ProductName, Description, Amount, CreatedAt, UpdatedAt) VALUES('602d2149e773f2a3990b47f6', 'Samsung 10', 'Samsung Discount', 100, '{DateTime.Now}', '{DateTime.Now}');";
                     command.ExecuteNonQuery();
 
                     logger.Here().Information("Migrated discount database.");

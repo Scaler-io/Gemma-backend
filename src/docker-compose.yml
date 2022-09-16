@@ -20,6 +20,12 @@ services:
       context: .
       dockerfile: Services/Basket/Gemma.Basket.API/Dockerfile
   
+  gemma.discount.grpc:
+    image: ${DOCKER_REGISTRY-}gemmadiscountgrpc
+    build:
+      context: .
+      dockerfile: Services/Discount/Gemma.Discount.GRPC/Dockerfile
+
   mongo_express:
     image: mongo-express
   redis-commander:
@@ -27,8 +33,10 @@ services:
   pgadmin:
     image: dpage/pgadmin4  
 
+  
 volumes:
   mongo_data: 
   postgres_data:
   pgadmin_data:
+
 
