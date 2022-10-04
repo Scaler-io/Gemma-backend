@@ -1,23 +1,23 @@
-version: '3.4'
+version: "3.4"
 
 services:
   catalogdb:
     container_name: catalog_db
     restart: always
-    ports: 
-        - "27017:27017"
+    ports:
+      - "27017:27017"
     volumes:
-        - mongo_data:/data/db 
+      - mongo_data:/data/db
 
   basketdb:
     container_name: basket_db
     restart: always
-    ports: 
-        - "6379:6379"
+    ports:
+      - "6379:6379"
 
   discountdb:
     container_name: discountdb
-    environment: 
+    environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin1234
       - POSTGRES_DB=DiscountDb
@@ -26,6 +26,15 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+
+  orderdb:
+    container_name: orderdb
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Orderdb@123
+    restart: always
+    ports:
+      - 1433:1433
 
   gemma.catalog.api:
     container_name: catalog.api
@@ -39,8 +48,8 @@ services:
     depends_on:
       - catalogdb
     ports:
-      - "8000:80" 
-    
+      - "8000:80"
+
   gemma.basket.api:
     container_name: basket.api
     environment:
@@ -65,26 +74,44 @@ services:
       - discountdb
     ports:
       - "8002:80"
-  
+
+  gemma.order.api:
+    container_name: order.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "LoggerConfigOption:OverrideSource=Microsoft"
+      - "LoggerConfigOption:OutputTemplate=[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] {NewLine} {Properties} {NewLine} {NewLine} {Message} {Exception}"
+      - "ConnectionStrings:OrderingConnectionString=Server=orderdb;Database=OrderDb;User Id=sa; Password=Orderdb@123"
+      - "EmailSettings:Server=smtp.mailtrap.io"
+      - "EmailSettings:Port=2525"
+      - "EmailSettings:CompanyAddress=order.support@gemma.com"
+      - "EmailSettings:Username=66c13e16d788f5"
+      - "EmailSettings:Password=63fc1816afc28a"
+      - "EmailSettings:EnableSSL=true"
+    depends_on:
+      - orderdb
+    ports:
+      - "8003:80"
+
   mongo_express:
     container_name: catalougedb_mongoexpress
     environment:
-       - ME_CONFIG_OPTIONS_EDITORTHEME=ambiance
-       - ME_CONFIG_MONGODB_SERVER=catalogdb
+      - ME_CONFIG_OPTIONS_EDITORTHEME=ambiance
+      - ME_CONFIG_MONGODB_SERVER=catalogdb
     depends_on:
-       - catalogdb
+      - catalogdb
     ports:
-       - "8081:8081" 
+      - "8081:8081"
 
   redis-commander:
     container_name: basketdb_viewer
     restart: always
     depends_on:
-        - basketdb
+      - basketdb
     environment:
-        - REDIS_HOST=basketdb:6379
+      - REDIS_HOST=basketdb:6379
     ports:
-        - 8082:8081
+      - 8082:8081
 
   pgadmin:
     container_name: discountdb_manager

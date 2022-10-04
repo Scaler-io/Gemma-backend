@@ -23,11 +23,13 @@ namespace Gemma.Order.Infrastructure.Persistance
                 {
                     case EntityState.Added:
                         entry.Entity.CreatedBy = "default";
-                        entry.Entity.CreatedAt = DateTime.Now;
+                        entry.Entity.CreatedAt = DateTime.UtcNow;
+                        entry.Entity.LastModifiedBy = "default";
+                        entry.Entity.LastModifiedAt = DateTime.UtcNow;
                         break;
                     case EntityState.Modified:
                         entry.Entity.LastModifiedBy = "default";
-                        entry.Entity.LastModifiedAt = DateTime.Now;
+                        entry.Entity.LastModifiedAt = DateTime.UtcNow;
                         break;
                 }
             }

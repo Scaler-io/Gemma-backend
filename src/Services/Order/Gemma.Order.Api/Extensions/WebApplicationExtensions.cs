@@ -44,7 +44,6 @@ namespace Gemma.Order.Api.Extensions
         {
             context.Database.Migrate();
             seeder(context, services);
-            throw new NotImplementedException();    
         }
     }
 }

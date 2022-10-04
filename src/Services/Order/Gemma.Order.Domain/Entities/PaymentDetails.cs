@@ -8,5 +8,6 @@
         public string Expiration { get; set; }
         public string CVV { get; set; }
         public int PaymentMethod { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

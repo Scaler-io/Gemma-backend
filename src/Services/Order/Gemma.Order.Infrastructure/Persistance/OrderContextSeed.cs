@@ -32,6 +32,14 @@ namespace Gemma.Order.Infrastructure.Persistance
                         State = "West Bengal",
                         ZipCode = "734003",
                         Country = "India"
+                    },
+                    PaymentDetails = new PaymentDetails
+                    {
+                        CardName = "Sharthak Mallik",
+                        CardNumber = "123456",
+                        CVV =  "123",
+                        Expiration = DateTime.Now.AddYears(10).ToString("dd/MM/yyyy"),
+                        PaymentMethod = 1
                     }
                 }
             };

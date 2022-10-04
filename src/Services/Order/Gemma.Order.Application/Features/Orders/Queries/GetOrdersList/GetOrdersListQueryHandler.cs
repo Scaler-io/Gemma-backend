@@ -5,6 +5,7 @@ using Gemma.Shared.Common;
 using Gemma.Shared.Constants;
 using Gemma.Shared.Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Serilog;
 
 namespace Gemma.Order.Application.Features.Orders.Queries.GetOrdersList
@@ -28,7 +29,7 @@ namespace Gemma.Order.Application.Features.Orders.Queries.GetOrdersList
 
             var orderDetails = await _orderRepository.GetOrdersByUserName(request.UserName);
 
-            if(orderDetails == null)
+            if(orderDetails.Count() == 0)
             {
                 _logger.Here().Error($"{ErrorCodes.NotFound} No orders found for {request.UserName}");
                 return Result<List<OrdersDto>>.Fail(ErrorCodes.NotFound);
@@ -36,7 +37,7 @@ namespace Gemma.Order.Application.Features.Orders.Queries.GetOrdersList
 
             var result = _mapper.Map<List<OrdersDto>>(orderDetails);
 
-            _logger.Here().Information($"Orders found {orderDetails}");
+            _logger.Here().Information("Orders found {@orderDetails}", orderDetails);
             _logger.Here().MethodExited();
 
             return Result<List<OrdersDto>>.Success(result);

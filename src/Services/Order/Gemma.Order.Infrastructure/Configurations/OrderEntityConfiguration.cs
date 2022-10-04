@@ -10,11 +10,11 @@ namespace Gemma.Order.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.HasOne(o => o.Address)
-                .WithMany()
+                .WithMany(ba => ba.Orders)
                 .HasForeignKey(o => o.BillingAddressId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(o => o.PaymentDetails)
-                .WithMany()
+                .WithMany(pd => pd.Orders)
                 .HasForeignKey(o => o.PaymentDetailsId)
                 .OnDelete(DeleteBehavior.Cascade);
         }

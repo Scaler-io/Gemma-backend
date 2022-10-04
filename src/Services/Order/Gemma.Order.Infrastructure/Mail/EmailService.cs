@@ -1,6 +1,8 @@
 ﻿using Gemma.Order.Application.Contracts.Infrastructure;
 using Gemma.Order.Application.Models;
 using Gemma.Shared.Extensions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Serilog;
 using System.Net;
@@ -10,13 +12,17 @@ namespace Gemma.Order.Infrastructure.Mail
 {
     public class EmailService : IEmailService
     {
-        private EmailSettings _emailSettings;
+        private readonly IConfiguration _configuration;
+        private EmailSettingsOptions _emailSettings = new EmailSettingsOptions();
         private readonly ILogger _logger;
+        private readonly IHttpContextAccessor _context;
 
-        public EmailService(IOptions<EmailSettings> emailSettings, ILogger logger)
+        public EmailService(ILogger logger, IHttpContextAccessor context, IConfiguration configuration)
         {
-            _emailSettings = emailSettings.Value;
             _logger = logger;
+            _context = context;
+            _configuration = configuration;
+            _configuration.GetSection(EmailSettingsOptions.EmailSettings).Bind(_emailSettings);
         }
 
         public async Task SendEmail(Email email)
@@ -59,9 +65,9 @@ namespace Gemma.Order.Infrastructure.Mail
             var client = new SmtpClient(_emailSettings.Server, _emailSettings.Port)
             {
                 Credentials = new NetworkCredential(_emailSettings.Username, _emailSettings.Password),
-                EnableSsl = _emailSettings.EnableSSL
+                EnableSsl = false
             };
-            _logger.Here().Information("Mail client established {@clientDetails}", client);
+            _logger.Here().Information("Mail client established {@clientDetails}", _emailSettings);
             return client;
         }
     }

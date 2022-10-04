@@ -7,6 +7,8 @@ services:
     image: redis:alpine
   discountdb:
     image: postgres 
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
 
   gemma.catalog.api:
     image: ${DOCKER_REGISTRY-}gemmacatalogapi
@@ -26,6 +28,12 @@ services:
       context: .
       dockerfile: Services/Discount/Gemma.Discount.GRPC/Dockerfile
 
+  gemma.order.api:
+    image: ${DOCKER_REGISTRY-}gemmaorderapi
+    build:
+      context: .
+      dockerfile: Services/Order/Gemma.Order.Api/Dockerfile
+
   mongo_express:
     image: mongo-express
   redis-commander:
@@ -33,10 +41,10 @@ services:
   pgadmin:
     image: dpage/pgadmin4  
 
-  
 volumes:
   mongo_data: 
   postgres_data:
   pgadmin_data:
+
 
 
