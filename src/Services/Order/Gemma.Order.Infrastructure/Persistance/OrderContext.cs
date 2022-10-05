@@ -15,6 +15,7 @@ namespace Gemma.Order.Infrastructure.Persistance
         public DbSet<Order> Orders { get; set; }
         public DbSet<BillingAddress> BillingAddresses { get; set; }
         public DbSet<PaymentDetails> PaymentDetails { get; set; }
+        public DbSet<NotificationEmailHistory> NotificationEmailHistories { get; set; }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             foreach(var entry in ChangeTracker.Entries<BaseEntity>())
