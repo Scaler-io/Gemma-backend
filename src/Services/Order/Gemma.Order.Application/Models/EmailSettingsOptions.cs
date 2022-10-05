@@ -12,6 +12,5 @@ namespace Gemma.Order.Application.Models
         public string Username { get; set; }
         [LogMasked]
         public string Password { get; set; }
-        public bool EnableSSL { get; set; }
     }
 }

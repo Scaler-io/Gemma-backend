@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using Gemma.Order.Application.Contracts.Infrastructure;
 using Gemma.Order.Application.Contracts.Persistance;
-using Gemma.Order.Application.Models;
+using Gemma.Order.Application.Factory.Mail;
 using Gemma.Shared.Common;
 using Gemma.Shared.Constants;
 using Gemma.Shared.Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using Serilog;
 
 namespace Gemma.Order.Application.Features.Orders.Commands.CheckoutOrder
@@ -48,13 +49,7 @@ namespace Gemma.Order.Application.Features.Orders.Commands.CheckoutOrder
         
         private async Task SendEmail(Order order)
         {
-            var email = new Email
-            {
-                To = "sharthakmallik@gmail.com",
-                Subject = "Your order has been placed successfully",
-                Body = $"See your order details . {order}"
-            };
-
+            var email = OrderPlacedMailFactory.GenerateOrderPlacedMessage(order, _logger);
             await _emailService.SendEmail(email);    
         }   
     }
