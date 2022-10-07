@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EventBus.Message.Events;
 using Gemma.Basket.API.DataAccess;
 using Gemma.Basket.API.Entities;
 using Gemma.Basket.API.Models.Requests;
@@ -7,7 +8,7 @@ using Gemma.Basket.API.Services.Interfaces;
 using Gemma.Shared.Common;
 using Gemma.Shared.Constants;
 using Gemma.Shared.Extensions;
-using Newtonsoft.Json;
+using MassTransit;
 using ILogger = Serilog.ILogger;
 
 namespace Gemma.Basket.API.Services
@@ -17,12 +18,14 @@ namespace Gemma.Basket.API.Services
         private readonly IMapper _mapper;
         private readonly ILogger _logger;
         private readonly IBasketRepository _basketRepository;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public BasketService(IMapper mapper, ILogger logger, IBasketRepository basketRepository)
+        public BasketService(IMapper mapper, ILogger logger, IBasketRepository basketRepository, IPublishEndpoint publishEndpoint)
         {
             _mapper = mapper;
             _logger = logger;
             _basketRepository = basketRepository;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task<Result<ShoppingCartResponse>> GetBasket(string username)
@@ -67,6 +70,32 @@ namespace Gemma.Basket.API.Services
             _logger.Here().MethodEnterd();
             await _basketRepository.DeleteBasket(username);
             _logger.Here().MethodExited();
+        }
+
+        public async Task<Result<bool>> CheckoutBasketAsync(BasketChekoutRequest request)
+        {
+            _logger.Here().MethodEnterd();
+            var basket = await _basketRepository.GetBasket(request.UserName);
+            if(basket == null)
+            {
+                _logger.Here().Error("@{errorCode}: No basket was found for the user @{userName}", ErrorCodes.NotFound, request.UserName);
+                return Result<bool>.Fail(ErrorCodes.NotFound, "No basket was found");
+            }
+            var eventMessage = _mapper.Map<BasketCheckoutEvent>(request);
+            try
+            {
+                await _publishEndpoint.Publish(eventMessage);
+                _logger.Here().Information("Checkout message published successfully {@message}", eventMessage);
+            }
+            catch(Exception ex)
+            {
+                _logger.Here().Error("Checkout message publish failed. {@trace}", ex.StackTrace);
+                return Result<bool>.Fail(ErrorCodes.Operationfailed, "Checkout message publish fail");
+            }
+            await _basketRepository.DeleteBasket(request.UserName);
+            _logger.Here().Information("Basket is deleted successfully @{userName}", request.UserName);
+            _logger.Here().MethodExited();
+            return Result<bool>.Success(true);
         }
     }
 }

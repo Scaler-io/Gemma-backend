@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using EventBus.Message.Events;
+using EventBus.Message.Models;
 using Gemma.Basket.API.Entities;
 using Gemma.Basket.API.Models;
 using Gemma.Basket.API.Models.Requests;
@@ -25,6 +27,14 @@ namespace Gemma.Basket.API.Mappers
 
             CreateMap<ShoppingCartItems, ShoppingCartItemResponse>()
                 .ForMember(s => s.ProductId, o => o.MapFrom(d => d.ProductId));
+
+            CreateMap<BasketChekoutRequest, BasketCheckoutEvent>()
+                .ForMember(s => s.UserName, o => o.MapFrom(d => d.UserName))
+                .ForMember(s => s.Address, o => o.MapFrom(d => d.Address))
+                .ForMember(s => s.PaymentDetails, o => o.MapFrom(d => d.PaymentDetails))
+                .ReverseMap();
+            CreateMap<CheckoutOrderBillingAddressRequest, CheckoutOrderBillingAddress>().ReverseMap();
+            CreateMap<CheckoutOrderPaymentDetailsRequest, CheckoutOrderPaymentDetails>().ReverseMap();
         }
     }
 }

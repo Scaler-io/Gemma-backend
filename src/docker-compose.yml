@@ -9,6 +9,8 @@ services:
     image: postgres 
   orderdb:
     image: mcr.microsoft.com/mssql/server:2022-latest
+  rabbitmq:
+    image: rabbitmq:3.11-management-alpine
 
   gemma.catalog.api:
     image: ${DOCKER_REGISTRY-}gemmacatalogapi

@@ -2,6 +2,7 @@
 using Gemma.Discount.GRPC.Protos;
 using Gemma.Infrastructure;
 using Gemma.Shared.Common;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using System.Reflection;
@@ -49,6 +50,14 @@ namespace Gemma.Basket.API.DI
             services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(o =>
             {
                 o.Address = new Uri(config["GrpcClient:DiscountUrl"]);
+            });
+
+            services.AddMassTransit(option =>
+            {
+                option.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host(config["RabbitmqSettings:ConnectionString"]);
+                });
             });
 
             return services;

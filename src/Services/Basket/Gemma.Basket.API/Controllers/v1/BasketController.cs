@@ -1,5 +1,4 @@
-﻿using Gemma.Basket.API.Entities;
-using Gemma.Basket.API.Models.Requests;
+﻿using Gemma.Basket.API.Models.Requests;
 using Gemma.Basket.API.Models.Responses;
 using Gemma.Basket.API.Services.GrpcServices;
 using Gemma.Basket.API.Services.Interfaces;
@@ -75,6 +74,18 @@ namespace Gemma.Basket.API.Controllers.v1
             await _basketService.DeleteBasket(username);
             Logger.Here().MethodExited();
             return NoContent();
+        }
+
+        [HttpPost("[action]")]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ApiValidationResponse), (int)HttpStatusCode.UnprocessableEntity)]
+        [ProducesResponseType(typeof(ApiExceptionResponse), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> Checkout([FromBody] BasketChekoutRequest request)
+        {
+            Logger.Here().MethodEnterd();
+            var result = await _basketService.CheckoutBasketAsync(request);
+            Logger.Here().MethodExited();
+            return OkOrFail(result);
         }
     }
 }

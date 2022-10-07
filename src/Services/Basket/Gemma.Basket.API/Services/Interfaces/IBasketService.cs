@@ -9,5 +9,6 @@ namespace Gemma.Basket.API.Services.Interfaces
         Task<Result<ShoppingCartResponse>> GetBasket(string username);
         Task<Result<ShoppingCartResponse>> UpdateBasket(ShoppingCartRequest request);
         Task DeleteBasket(string username);
+        Task<Result<bool>> CheckoutBasketAsync(BasketChekoutRequest request);
     }
 }
