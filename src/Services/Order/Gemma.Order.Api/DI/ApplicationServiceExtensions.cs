@@ -1,6 +1,9 @@
-﻿using Gemma.Infrastructure;
+﻿using EventBus.Message.Common.Constants;
+using Gemma.Infrastructure;
 using Gemma.Order.Api.Middlewares;
+using Gemma.Order.Application.EventConsumers;
 using Gemma.Shared.Common;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -35,6 +38,18 @@ namespace Gemma.Order.Api.DI
 
             services.AddSingleton(x => logger);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddMassTransit(option => {
+                option.AddConsumer<BasketCheckoutConsumer>();
+                option.UsingRabbitMq((ctx, cfg) =>
+                {
+                    cfg.Host(config["RabbitmqSettings:ConnectionString"]);
+                    cfg.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, ep =>
+                    {
+                        ep.ConfigureConsumer<BasketCheckoutConsumer>(ctx);
+                    });
+                });
+            });
 
             return services;
         }

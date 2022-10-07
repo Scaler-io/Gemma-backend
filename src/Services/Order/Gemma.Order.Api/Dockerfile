@@ -13,6 +13,7 @@ COPY ["Services/Shared/Gemma.Shared/Gemma.Shared.csproj", "Services/Shared/Gemma
 COPY ["Services/Infrastructure/Gemma.Infrastructure/Gemma.Infrastructure.csproj", "Services/Infrastructure/Gemma.Infrastructure/"]
 COPY ["Services/Order/Gemma.Order.Domain/Gemma.Order.Domain.csproj", "Services/Order/Gemma.Order.Domain/"]
 COPY ["Services/Order/Gemma.Order.Infrastructure/Gemma.Order.Infrastructure.csproj", "Services/Order/Gemma.Order.Infrastructure/"]
+COPY ["Services/Infrastructure/EventBus.Message/EventBus.Message.csproj", "Services/Infrastructure/EventBus.Message/"]
 RUN dotnet restore "Services/Order/Gemma.Order.Api/Gemma.Order.Api.csproj"
 COPY . .
 WORKDIR "/src/Services/Order/Gemma.Order.Api"

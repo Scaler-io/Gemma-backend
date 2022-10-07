@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\EventBus.Message\EventBus.Message.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Gemma.Infrastructure\Gemma.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Shared\Gemma.Shared\Gemma.Shared.csproj" />
     <ProjectReference Include="..\Gemma.Order.Domain\Gemma.Order.Domain.csproj" />
@@ -19,6 +20,8 @@
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.2" />
     <PackageReference Include="MailKit" Version="3.4.1" />
+    <PackageReference Include="MassTransit" Version="8.0.7" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.7" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
   </ItemGroup>
 

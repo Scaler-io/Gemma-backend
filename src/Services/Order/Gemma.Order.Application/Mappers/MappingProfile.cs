@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using EventBus.Message.Events;
+using EventBus.Message.Models;
 using Gemma.Order.Application.Models.Dtos;
 using Gemma.Order.Application.Models.Dtos.Order;
 using Gemma.Order.Application.Models.Requests;
@@ -46,6 +48,14 @@ namespace Gemma.Order.Application.Mappers
 
             CreateMap<BillingAddressRequest, BillingAddress>().ReverseMap();
             CreateMap<PaymentDetailsRequest, PaymentDetails>().ReverseMap();
+
+            CreateMap<CheckoutOrderRequest, BasketCheckoutEvent>()
+                .ForMember(s => s.Address, o => o.MapFrom(d => d.Address))
+                .ForMember(s => s.PaymentDetails, o => o.MapFrom(d => d.PaymentDetails))
+                .ReverseMap();
+
+            CreateMap<CheckoutOrderBillingAddress, BillingAddressRequest>().ReverseMap();
+            CreateMap<CheckoutOrderPaymentDetails, PaymentDetailsRequest>().ReverseMap();
         }
     }
 }

@@ -9,6 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Services/Basket/Gemma.Basket.API/Gemma.Basket.API.csproj", "Services/Basket/Gemma.Basket.API/"]
 COPY ["Services/Shared/Gemma.Shared/Gemma.Shared.csproj", "Services/Shared/Gemma.Shared/"]
+COPY ["Services/Infrastructure/EventBus.Message/EventBus.Message.csproj", "Services/Infrastructure/EventBus.Message/"]
 RUN dotnet restore "Services/Basket/Gemma.Basket.API/Gemma.Basket.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Basket/Gemma.Basket.API"
